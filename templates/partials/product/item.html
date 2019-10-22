@@ -1,0 +1,43 @@
+<div class="col-lg-3 col-md-6 mb-4">
+
+              <!--Card-->
+              <div class="card">
+
+                <!--Card image-->
+                <div class="view overlay">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/13.jpg" class="card-img-top"
+                    alt="">
+                  <a>
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <!--Card image-->
+
+                <!--Card content-->
+                <div class="card-body text-center">
+                  <!--Category & Title-->
+                  <a href="" class="grey-text">
+                    <h5>{{ item.get_category_display }}</h5>
+                  </a>
+                  <h5>
+                    <strong>
+                      <a href="{{item.get_absolute_url}}" class="dark-grey-text">{{ item.title }}
+                          <span class="badge badge-pill {{item.get_label_display}}-color">NEW teste</span>
+                      </a>
+                    </strong>
+                  </h5>
+<h5>
+                  </strong>
+                </h5>
+
+                  <h4 class="font-weight-bold blue-text">
+                    <strong>${{item.price}}</strong>
+                  </h4>
+
+                </div>
+                <!--Card content-->
+
+              <!--Card-->
+              </div>
+
+            </div>

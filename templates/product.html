@@ -26,10 +26,10 @@
 
             <div class="mb-3">
               <a href="">
-                <span class="badge purple mr-1">Category 2</span>
+                <span class="badge purple mr-1">{{object.get_category_display}}</span>
               </a>
               <a href="">
-                <span class="badge blue mr-1">New</span>
+                <span class="badge blue {{object.get_label_display}} mr-1">New</span>
               </a>
               <a href="">
                 <span class="badge red mr-1">Bestseller</span>
@@ -40,14 +40,12 @@
               <span class="mr-1">
                 <del>$200</del>
               </span>
-              <span>$100</span>
+              <span>${{object.price}}</span>
             </p>
 
             <p class="lead font-weight-bold">Description</p>
 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et dolor suscipit libero eos atque quia ipsa
-              sint voluptatibus!
-              Beatae sit assumenda asperiores iure at maxime atque repellendus maiores quia sapiente.</p>
+            <p>{{object.title}}</p>
 
             <form class="d-flex justify-content-left">
               <!-- Default input -->
