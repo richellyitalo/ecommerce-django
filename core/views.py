@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Item, OrderItem, Order
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
+from django.contrib import messages
 
 
 class HomeView(ListView):
@@ -36,13 +37,16 @@ def add_to_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
+            messages.info(request, 'Produto atualizado.')
         else:
+            messages.info(request, 'Produto adicionado.')
             order.items.add(order_item)
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(
             user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
+        messages.info(request, 'Produto adicionado.')
     return redirect('core:product', slug=item.slug)
 
 
@@ -52,18 +56,19 @@ def remove_from_cart(request, slug):
 
     if order_qs.exists():
         order = order_qs[0]
-        if order.items.filter(item__pk=item.pk).exists():
+        if order.items.filter(item__slug=item.slug).exists():
             order_item = OrderItem.objects.filter(
                 user=request.user,
                 item=item,
                 ordered=False
             )[0]
             order.items.remove(order_item)
-            # mensagem item removido com sucesso
+            order_item.delete()
+            messages.info(request, 'Produto removido dos pedidos.')
         else:
-            # sem item na lista de pedidos
+            messages.info(request, 'O produto não está adicionado ao pedido.')
             return redirect('core:product', slug=item.slug)
     else:
-        # sem pedido associado
+        messages.info(request, 'Não é um pedido associado a você.')
         return redirect('core:product', slug=item.slug)
     return redirect('core:product', slug=item.slug)
