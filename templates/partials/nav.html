@@ -31,16 +31,30 @@
           </li>
         </ul>
 
-        <!-- Right -->
-        <ul class="navbar-nav nav-flex-icons">
-          <li class="nav-item">
-            <a class="nav-link waves-effect">
-              <span class="badge red z-depth-1 mr-1"> 1 </span>
-              <i class="fas fa-shopping-cart"></i>
-              <span class="clearfix d-none d-sm-inline-block"> Cart </span>
-            </a>
-          </li>
-        </ul>
+        {% if request.user.is_autenticated %}
+			<ul class="navbar-nav nav-flex-icons">
+			  <li class="nav-item">
+				<a class="nav-link waves-effect">
+				  <span class="badge red z-depth-1 mr-1"> 1 </span>
+				  <i class="fas fa-shopping-cart"></i>
+				  <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+				</a>
+			  </li>
+			  <li class="nav-item">
+				  <a href="{% url 'account_logout' %}" class="nav-link waves-effect">
+				  <span class="clearfix d-none d-sm-inline-block">Deslogar</span>
+				</a>
+			  </li>
+			</ul>
+        {% else %}
+			<ul class="navbar-nav nav-flex-icons">
+			  <li class="nav-item">
+				  <a href="{% url 'account_login' %}" class="nav-link waves-effect">
+				  <span class="clearfix d-none d-sm-inline-block">Login</span>
+				</a>
+			  </li>
+			</ul>
+        {% endif %}
 
       </div>
 
