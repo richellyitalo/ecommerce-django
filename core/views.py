@@ -7,11 +7,13 @@ from django.contrib import messages
 
 class HomeView(ListView):
     model = Item
+    paginate_by = 10
     template_name = 'home.html'
 
 
 class ProductView(ListView):
     model = Item
+    paginate_by = 10
     template_name = 'products.html'
 
 
