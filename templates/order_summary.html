@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!--Main layout-->
+<main class="mt-4 pt-5">
+	<div class="container">
+
+		<h1>Resumo do pedido</h1>	
+
+		<div class="table-responsive text-nowrap">
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Nome do item</th>
+						<th scope="col">Preço</th>
+						<th scope="col">Quantidade</th>
+						<th scope="col">Preço final</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in order.items.all %}
+					<tr>
+						<th scope="row">{{ forloop.counter }}</th>
+						<td>{{ item.item.title }}</td>
+						<td>${{ item.item.price }}</td>
+						<td>{{ item.quantity }}</td>
+						<td>{{ item.quantity }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</main>
+
+{% endblock content %}
