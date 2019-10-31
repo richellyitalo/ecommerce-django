@@ -27,9 +27,31 @@
 						<td>{{ item.item.title }}</td>
 						<td>${{ item.item.price }}</td>
 						<td>{{ item.quantity }}</td>
-						<td>{{ item.quantity }}</td>
+						<td>R$
+							{% if item.item.discount_price %}
+								{{ item.get_total_discount_item_price }}
+								<span class="badge badge-primary">(Desconto: R${{ item.get_amount_saved }})</span>
+							{% else %}
+								{{ item.get_total_item_price }}
+							{% endif %}
+						</td>
 					</tr>
+					{% empty %}
+						<tr>
+							<td colspan="5">Seu carro está vazio</td>
+						</tr>
+						<tr>
+							<td colspan="5">
+								<a href="/" class="btn btn-primary float-right">Continuar comprando</a>
+							</td>
+						</tr>
 					{% endfor %}
+					{% if order.items %}
+						<tr>
+							<td colspan="4"><strong>Valor total do pedido</strong></td>
+							<td>R${{ order.get_total }}</td>
+						</tr>
+					{% endif %}
 				</tbody>
 			</table>
 
