@@ -26,7 +26,17 @@
 						<th scope="row">{{ forloop.counter }}</th>
 						<td>{{ item.item.title }}</td>
 						<td>${{ item.item.price }}</td>
-						<td>{{ item.quantity }}</td>
+						<td>
+							<a href="{% url 'core:remove-quantity-from-cart' item.item.slug %}">
+								<i class="fa fa-minus"></i>
+							</a>
+							&nbsp;
+							{{ item.quantity }}
+							&nbsp;
+							<a href="{% url 'core:add-to-cart' item.item.slug %}">
+								<i class="fa fa-plus"></i>
+							</a>
+						</td>
 						<td>R$
 							{% if item.item.discount_price %}
 								{{ item.get_total_discount_item_price }}

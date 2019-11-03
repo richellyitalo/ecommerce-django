@@ -35,7 +35,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return render(request, 'order_summary.html', context)
         except ObjectDoesNotExist:
             messages.error(self.request, "Você não possui nenhum pedido ativo")
-            return redirect('/') 
+            return redirect('/')
 
 
 def checkout(request):
@@ -66,7 +66,34 @@ def add_to_cart(request, slug):
             user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
         messages.info(request, 'Produto adicionado.')
-    return redirect('core:product', slug=item.slug)
+    return redirect('core:order-summary')
+
+
+@login_required
+def remove_a_quantity_from_cart(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item = OrderItem.objects.filter(
+                user=request.user,
+                item=item,
+                ordered=False
+            )[0]
+            if order_item.quantity == 1:
+                order.items.remove(order_item)
+                order_item.delete()
+            else:
+                order_item.quantity -= 1
+                order_item.save()
+            messages.info(request, 'Produto atualizado.')
+            return redirect('core:order-summary')
+        else:
+            messages.info(request, 'O produto não está na lista de pedidos.')
+
+    return redirect('core:home')
 
 
 @login_required
