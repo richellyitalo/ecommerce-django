@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CheckoutForm
 
 
 class HomeView(ListView):
@@ -25,6 +26,14 @@ class ProductDetail(DetailView):
     template_name = 'product.html'
 
 
+class CheckoutView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        context = {
+            'form': CheckoutForm()
+        }
+        return render(request, 'checkout-page.html', context)
+
+
 class OrderSummaryView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
@@ -36,10 +45,6 @@ class OrderSummaryView(LoginRequiredMixin, View):
         except ObjectDoesNotExist:
             messages.error(self.request, "Você não possui nenhum pedido ativo")
             return redirect('/')
-
-
-def checkout(request):
-    return render(request, 'checkout-page.html')
 
 
 @login_required

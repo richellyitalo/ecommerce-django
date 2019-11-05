@@ -61,6 +61,11 @@
 							<td colspan="4"><strong>Valor total do pedido</strong></td>
 							<td>R${{ order.get_total }}</td>
 						</tr>
+						<tr>
+							<td colspan="5">
+								<a href="{% url 'core:checkout' %}" class="btn btn-primary float-right">Realizar checkout</a>
+							</td>
+						</tr>
 					{% endif %}
 				</tbody>
 			</table>
