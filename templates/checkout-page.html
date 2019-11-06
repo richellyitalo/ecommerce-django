@@ -20,9 +20,14 @@
         <!--Card-->
         <div class="card">
           
-          <form>
+          <form method="post" class="card-body">
             {% csrf_token %}
-            {{ form|crispy }}
+
+			<h3>Endereço de Entrega</h3>	
+
+			<div class="hideable_shipping_form">
+				
+			</div>
           </form>
           <!--Card content-->
 
@@ -34,7 +39,8 @@
               <!-- <input type="text" id="address" class="form-control" placeholder="1234 Main St">
               <label for="address" class="">Address</label> -->
               {{ form.street_address }}
-            </div>
+            
+			</div>
 
             <!--address-2-->
             <div class="md-form mb-5">
